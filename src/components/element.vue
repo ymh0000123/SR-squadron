@@ -16,6 +16,7 @@
         </div>
         <p v-else>
         <div class="loader"></div>
+        藿藿正在努力搬运数据
         </p>
         <p v-if="error">{{ error }}</p>
     </div>
@@ -73,3 +74,8 @@ export default {
     }
 };
 </script>
+<style scoped>
+#interactivity:hover {
+    border: 1px solid rgb(163,195,207);
+}
+</style>

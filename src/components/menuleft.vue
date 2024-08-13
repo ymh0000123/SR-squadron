@@ -18,3 +18,8 @@ export default {
     }
 }
 </script>
+<style scoped>
+#name {
+    color: rgb(192,228,233);
+}
+</style>

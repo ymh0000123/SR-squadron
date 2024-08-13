@@ -52,7 +52,7 @@ body {
   border-radius: 50%;
   height: 50px;
   overflow: hidden;
-  border: 5px solid rgb(231, 219, 181);
+  border: 2px solid rgb(231, 219, 181);
   background-color: #ddd;
   object-fit: cover;
   display: block;

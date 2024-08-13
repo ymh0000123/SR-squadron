@@ -17,13 +17,13 @@
                 <strong>评论量:</strong> {{ data.comments }}
             </div>
             <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
-            <div v-html="parsedBody"></div>
+            <div v-html="parsedBody" id="parsedBody"></div>
         </div>
     </div>
 
     <div id="interactivity" v-if="data">
         <div>
-            <div style="font-size: 1.5em;">评论</div>
+            <div id="comment">评论</div>
             <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
             <ul>
                 <div v-for="(event, index) in filteredTimeline" :key="index">
@@ -94,3 +94,14 @@ export default {
     },
 };
 </script>
+<style scoped>
+#parsedBody img{
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+#comment {
+    font-size: 1.5em;
+    color: rgb(206, 248, 255);
+}
+</style>
