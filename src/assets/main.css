@@ -1,28 +1,31 @@
 body {
-  background-color: rgb(49,111,126);
+  background-color: rgb(49, 111, 126);
   margin: 0;
   color: #a8c6cc;
-  background: url(https://ymh-picture.pages.dev/list/PixPin_2024-08-11_16-30-36.webp) no-repeat center center fixed;
+  background: url(https://ymh-picture.pages.dev/list/PixPin_2024-08-11_16-30-36.webp)
+    no-repeat center center fixed;
   background-size: cover;
 }
 #app {
   display: flex;
+  margin-left: 15%;
+  margin-right: 15%;
 }
 #interactivity {
   margin-left: 50px;
   margin-right: 15%;
   margin-top: 20px;
-  color: rgb(135,159,166);
+  color: rgb(135, 159, 166);
   border: 1px solid rgb(60, 67, 73);
   background-color: rgba(8, 9, 10, 0.363);
   width: 100%;
   padding: 10px 15px;
 }
 #interactivity #title {
-  color: rgb(98,244,248);
+  color: rgb(98, 244, 248);
 }
-#interactivity #user{
-  color: rgb(206,248,255);
+#interactivity #user {
+  color: rgb(206, 248, 255);
 }
 #main {
   margin-left: 20px;
@@ -35,7 +38,7 @@ body {
   margin-right: 10%;
   margin-top: 25%;
   flex: 1;
-  color: rgb(135,159,166);
+  color: rgb(135, 159, 166);
   border: 1px solid rgb(60, 67, 73);
   background-color: rgba(8, 9, 10, 0.363);
   width: 100%;
@@ -46,19 +49,31 @@ body {
   border-radius: 50%;
   height: 50px;
   overflow: hidden;
-  border: 5px solid rgb(231,219,181);
+  border: 5px solid rgb(231, 219, 181);
   background-color: #ddd;
   object-fit: cover;
   display: block;
   margin: 0 auto;
 }
 #menuleft h1 {
-  text-align: center
+  text-align: center;
 }
 a {
   text-decoration: none;
-  color: rgb(206,248,255);
+  color: rgb(206, 248, 255);
 }
 #left-menu {
   position: fixed;
+}
+@media (max-width: 780px) {
+  #app {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+@media (max-width: 980px) {
+  #app {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 }
