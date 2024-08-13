@@ -3,6 +3,7 @@
         <p v-if="loading">
             <div class="loader"></div>
             Loading...
+            藿藿正在努力搬运数据
         </p>
         <p v-if="error">{{ error }}</p>
         <div v-if="data">
@@ -85,7 +86,7 @@ export default {
                 this.data = response.data[0];
             })
             .catch(error => {
-                this.error = 'Error fetching data: ' + error.message;
+                this.error = '藿藿正在搬运数据发现 Error fetching data: ' + error.message;
             })
             .finally(() => {
                 this.loading = false;

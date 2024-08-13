@@ -10,15 +10,16 @@
                 </div>
                 <h2 id="title">{{ item?.title }}</h2>
                 <p>{{ truncateAndHideAfterNewline(item?.body, 70) }}</p>
-                <div> #{{ item?.number }} 发布时间: {{ item?.created_at ? formatDate(item.created_at) : '' }} 评论数: {{ item?.comments }}</div>
+                <div> #{{ item?.number }} 发布时间: {{ item?.created_at ? formatDate(item.created_at) : '' }} 评论数: {{
+                    item?.comments }}</div>
             </div>
         </div>
         <p v-else>
         <div class="loader"></div>
         </p>
+        <p v-if="error">{{ error }}</p>
     </div>
 </template>
-
 
 <script>
 import { ref, onMounted } from 'vue';
@@ -27,13 +28,15 @@ import axios from 'axios';
 export default {
     setup() {
         const responseData = ref(null);
+        const error = ref(null);
 
         const get = async () => {
             try {
                 const response = await axios.get(import.meta.env.VITE_INTERACTIVITY);
                 responseData.value = response.data;
-            } catch (error) {
-                console.log(error);
+            } catch (err) {
+                console.log(err);
+                error.value = '藿藿正在搬运数据发现 Error fetching data: ' + err.message;
             }
         };
 
@@ -62,6 +65,7 @@ export default {
 
         return {
             responseData,
+            error,
             formatDate,
             truncateAndHideAfterNewline,
             look,
