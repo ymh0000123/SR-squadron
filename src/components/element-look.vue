@@ -1,0 +1,82 @@
+<template>
+    <div id="interactivity">
+        <p v-if="loading">Loading...</p>
+        <p v-if="error">{{ error }}</p>
+        <div v-if="data">
+            <h2 id="title">{{ data.title }}</h2>
+            <div id="user">
+                <strong>发布者:</strong>
+                <img :src="`https://github.com/` + data.user_login + `.png`"
+                    style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);" alt="GitHub Avatar">
+                {{ data.user_login }}
+                <strong>发布时间:</strong> {{ formatDate(data.created_at) }}
+                <strong>评论量:</strong> {{ data.comments }}
+            </div>
+            <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
+            <div v-html="parsedBody"></div>
+        </div>
+    </div>
+
+    <div id="interactivity" v-if="data">
+        <div>
+            <div style="font-size: 1.5em;">评论</div>
+            <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
+            <ul>
+                <div v-for="(event, index) in filteredTimeline" :key="index">
+                    <p>
+                        <img :src="`https://github.com/` + event.actor_login + `.png`"
+                            style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);"
+                            alt="GitHub Avatar">
+                        {{ event.actor_login }}:
+                    </p> {{ event.body }}
+                    <em>(回复时间 {{ formatDate(event.created_at) }})</em>
+                </div>
+            </ul>
+        </div>
+        <p><a :href="data.html_url" target="_blank" style="">去 GitHub 评论</a></p>
+    </div>
+</template>
+
+<script>
+import axios from 'axios';
+import { marked } from 'marked';  // 引入 marked 库
+
+export default {
+    data() {
+        return {
+            data: null,
+            loading: true,
+            error: null,
+        };
+    },
+    computed: {
+        filteredTimeline() {
+            // 过滤掉 `body` 为 "没有正文" 的时间线项
+            return this.data ? this.data.timeline.filter(event => event.body !== '没有正文') : [];
+        },
+        parsedBody() {
+            // 将 data.body 解析为 HTML
+            return this.data ? marked(this.data.body) : '';
+        }
+    },
+    methods: {
+        formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+    },
+    mounted() {
+        axios.get(import.meta.env.VITE_INTERACTIVITY)
+            .then(response => {
+                // 假设返回的是一个数组，这里只取第一个元素进行处理
+                this.data = response.data[0];
+            })
+            .catch(error => {
+                this.error = 'Error fetching data: ' + error.message;
+            })
+            .finally(() => {
+                this.loading = false;
+            });
+    },
+};
+</script>

@@ -1,16 +1,21 @@
 <template>
     <div id="interactivity">
         <div v-if="responseData && responseData.length">
-            <div v-for="(item, index) in responseData" :key="index">
-                <div id="user">{{ item.user_login }}</div>
-                <h2 id="title">{{ item.title }}</h2>
-                <p>{{ item.body }}</p>
-                <div>{{ formatDate(item.created_at) }}</div>
+            <div v-for="(item, index) in responseData" :key="index" style="cursor: pointer;"
+                @click="item && look(item.id)">
+                <div id="user">
+                    <img :src="`https://github.com/` + item?.user_login + `.png`" style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);" alt="GitHub Avatar">
+                    {{ item?.user_login }}
+                </div>
+                <h2 id="title">{{ item?.title }}</h2>
+                <p>{{ truncateAndHideAfterNewline(item?.body, 100) }}</p>
+                <div>{{ item?.created_at ? formatDate(item.created_at) : '' }}</div>
             </div>
         </div>
         <p v-else>No data available</p>
     </div>
 </template>
+
 
 <script>
 import { ref, onMounted } from 'vue';
@@ -23,7 +28,6 @@ export default {
         const get = async () => {
             try {
                 const response = await axios.get(import.meta.env.VITE_INTERACTIVITY);
-                console.log(response.data);
                 responseData.value = response.data;
             } catch (error) {
                 console.log(error);
@@ -35,14 +39,29 @@ export default {
             return new Date(dateString).toLocaleDateString(undefined, options);
         };
 
+        const truncateAndHideAfterNewline = (text, maxLength) => {
+            const newlineIndex = text.indexOf('\n');
+            let truncatedText = newlineIndex !== -1 ? text.slice(0, newlineIndex) : text;
+            if (truncatedText.length > maxLength) {
+                truncatedText = truncatedText.slice(0, maxLength) + '...';
+            }
+            return truncatedText;
+        };
+
         onMounted(() => {
-            console.log(import.meta.env.VITE_INTERACTIVITY);
             get();
         });
+
+        const look = (id) => {
+            localStorage.setItem('lookPagesId', id)
+            window.open(`/look.html`, '_blank');
+        };
 
         return {
             responseData,
             formatDate,
+            truncateAndHideAfterNewline,
+            look,
         };
     }
 };

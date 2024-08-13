@@ -16,6 +16,7 @@ export default defineConfig({
   build: {
     input: {
       index: 'index.html',
+      look: 'look.html',
     }
   }
 })
