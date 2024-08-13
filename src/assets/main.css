@@ -1,35 +1,23 @@
-@import './base.css';
-
+body {
+  background-color: rgb(49,111,126);
+  margin: 0;
+  color: #a8c6cc;
+  background: url(https://ymh-picture.pages.dev/list/PixPin_2024-08-11_16-30-36.webp)
+}
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+  display: flex;
 }
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+#interactivity {
+  margin-left: 20px;
+  margin-right: 15%;
+  margin-top: 10px;
+  color: rgb(135,159,166);
+  border: 1px solid rgb(60, 67, 73);
+  background-color: rgba(28, 30, 35, 0.301);
 }
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+#interactivity #title {
+  color: rgb(98,244,248);
 }
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+#interactivity #user{
+  color: rgb(206,248,255);
 }
