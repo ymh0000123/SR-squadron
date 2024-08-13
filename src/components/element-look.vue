@@ -1,8 +1,8 @@
 <template>
     <div id="interactivity">
         <p v-if="loading">
-        <div class="loader"></div>
-        Loading...
+            <div class="loader"></div>
+            Loading...
         </p>
         <p v-if="error">{{ error }}</p>
         <div v-if="data">
@@ -27,14 +27,15 @@
             <ul>
                 <div v-for="(event, index) in filteredTimeline" :key="index">
                     <p>
-                    <div id="user">
-                        <img :src="`https://github.com/` + event.actor_login + `.png`"
-                            style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);"
-                            alt="GitHub Avatar">
-                        {{ event.actor_login }}
-                    </div>
-                    <em>(回复时间 {{ formatDate(event.created_at) }})</em>:
-                    </p> {{ event.body }}
+                        <div id="user">
+                            <img :src="`https://github.com/` + event.actor_login + `.png`"
+                                style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);"
+                                alt="GitHub Avatar">
+                            {{ event.actor_login }}
+                        </div>
+                        <em>(回复时间 {{ formatDate(event.created_at) }})</em>:
+                    </p> 
+                    <div v-html="event.parsedBody"></div>
                     <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
                 </div>
             </ul>
@@ -58,7 +59,13 @@ export default {
     computed: {
         filteredTimeline() {
             // 过滤掉 `body` 为 "没有正文" 的时间线项
-            return this.data ? this.data.timeline.filter(event => event.body !== '没有正文') : [];
+            // 并将 `body` 使用 `marked` 转换为 HTML
+            return this.data ? this.data.timeline.filter(event => event.body !== '没有正文').map(event => {
+                return {
+                    ...event,
+                    parsedBody: marked(event.body)
+                };
+            }) : [];
         },
         parsedBody() {
             // 将 data.body 解析为 HTML
