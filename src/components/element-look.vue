@@ -27,12 +27,15 @@
             <ul>
                 <div v-for="(event, index) in filteredTimeline" :key="index">
                     <p>
+                    <div id="user">
                         <img :src="`https://github.com/` + event.actor_login + `.png`"
                             style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);"
                             alt="GitHub Avatar">
-                        {{ event.actor_login }}:
+                        {{ event.actor_login }}
+                    </div>
+                    <em>(回复时间 {{ formatDate(event.created_at) }})</em>:
                     </p> {{ event.body }}
-                    <em>(回复时间 {{ formatDate(event.created_at) }})</em>
+                    <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
                 </div>
             </ul>
         </div>
