@@ -1,6 +1,9 @@
 <template>
     <div id="interactivity">
-        <p v-if="loading">Loading...</p>
+        <p v-if="loading">
+        <div class="loader"></div>
+        Loading...
+        </p>
         <p v-if="error">{{ error }}</p>
         <div v-if="data">
             <h2 id="title">{{ data.title }}</h2>

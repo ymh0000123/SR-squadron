@@ -4,7 +4,8 @@
             <div v-for="(item, index) in responseData" :key="index" style="cursor: pointer;"
                 @click="item && look(item.id)">
                 <div id="user">
-                    <img :src="`https://github.com/` + item?.user_login + `.png`" style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);" alt="GitHub Avatar">
+                    <img :src="`https://github.com/` + item?.user_login + `.png`"
+                        style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);" alt="GitHub Avatar">
                     {{ item?.user_login }}
                 </div>
                 <h2 id="title">{{ item?.title }}</h2>
@@ -12,7 +13,9 @@
                 <div>{{ item?.created_at ? formatDate(item.created_at) : '' }}</div>
             </div>
         </div>
-        <p v-else>No data available</p>
+        <p v-else>
+        <div class="loader"></div>
+        </p>
     </div>
 </template>
 
