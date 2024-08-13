@@ -9,8 +9,8 @@
                     {{ item?.user_login }}
                 </div>
                 <h2 id="title">{{ item?.title }}</h2>
-                <p>{{ truncateAndHideAfterNewline(item?.body, 100) }}</p>
-                <div>{{ item?.created_at ? formatDate(item.created_at) : '' }}</div>
+                <p>{{ truncateAndHideAfterNewline(item?.body, 70) }}</p>
+                <div> #{{ item?.number }} 发布时间: {{ item?.created_at ? formatDate(item.created_at) : '' }} 评论数: {{ item?.comments }}</div>
             </div>
         </div>
         <p v-else>
