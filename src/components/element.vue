@@ -1,8 +1,8 @@
 <template>
     <div class="list">
-        <div v-if="responseData && responseData.length" id="interactivity">
+        <div v-if="responseData && responseData.length">
             <div v-for="(item, index) in responseData" :key="index" style="cursor: pointer;"
-                @click="item && look(item.id)">
+                @click="item && look(item.id)"  id="interactivity">
                 <div id="user">
                     <img :src="`https://github.com/` + item?.user_login + `.png`"
                         style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);" alt="GitHub Avatar">
