@@ -36,7 +36,6 @@ body {
 }
 
 #menuleft {
-  margin-left: 25px;
   margin-right: 10%;
   margin-top: 25%;
   flex: 1;
@@ -79,6 +78,24 @@ a {
   animation: l2 0.75s infinite linear;
 }
 
+#button-1 button{
+  margin-top: 20px;
+  width: 100%;
+  background-color: rgba(8, 9, 10, 0.363);
+  color: rgb(131,154,159);
+  backdrop-filter: blur(10px) saturate(150%);
+  border: 1px solid rgb(60, 67, 73);
+  padding: 5px 5px;
+  padding-left: 10px;
+  font-size: 1.3em;
+  text-align: left;
+}
+
+#button-1 button:hover{
+  border: 1px solid rgb( 74,192,210);
+  color: rgb( 74,192,210);
+  background-color: rgb( 26, 82,114);
+}
 @keyframes l2 {
   to {
     transform: rotate(1turn);
