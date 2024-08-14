@@ -36,7 +36,7 @@
                         </div>
                         <em>(回复时间 {{ formatDate(event.created_at) }})</em>:
                     </p> 
-                    <div v-html="event.parsedBody"></div>
+                    <div v-html="event.parsedBody" id="parsed-Body"></div>
                     <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
                 </div>
             </ul>
@@ -102,6 +102,9 @@ export default {
 }
 #comment {
     font-size: 1.5em;
+    color: rgb(206, 248, 255);
+}
+#parsed-Body {
     color: rgb(206, 248, 255);
 }
 </style>
