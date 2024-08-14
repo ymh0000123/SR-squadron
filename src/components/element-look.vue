@@ -6,62 +6,60 @@
             藿藿正在努力搬运数据
         </p>
         <p v-if="error">{{ error }}</p>
-        <div v-if="data">
-            <h2 id="title">{{ data.title }}</h2>
+        <div v-if="filteredData">
+            <h2 id="title">{{ filteredData.title }}</h2>
             <div id="user">
                 <strong>发布者:</strong>
-                <img :src="'https://github.com/' + data.user_login + '.png'"
+                <img :src="'https://github.com/' + filteredData.user_login + '.png'"
                     style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);" alt="GitHub Avatar">
-                {{ data.user_login }}
-                <strong>发布时间:</strong> {{ formatDate(data.created_at) }}
-                <strong>评论量:</strong> {{ data.comments }}
+                {{ filteredData.user_login }}
+                <strong>发布时间:</strong> {{ formatDate(filteredData.created_at) }}
+                <strong>评论量:</strong> {{ filteredData.comments }}
             </div>
             <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
             <div v-html="parsedBody" id="parsedBody" class="interactivity"></div>
         </div>
-    </div>
-
-    <div id="interactivity" v-if="data">
-        <div>
-            <div id="comment">评论</div>
-            <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
-            <ul>
-                <div v-for="(event, index) in filteredTimeline" :key="index">
-                    <p>
-                        <div id="user">
-                            <img :src="`https://github.com/` + event.actor_login + `.png`"
-                                style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);"
-                                alt="GitHub Avatar">
-                            {{ event.actor_login }}
-                        </div>
-                        <em>(回复时间 {{ formatDate(event.created_at) }})</em>:
-                    </p> 
-                    <div v-html="event.parsedBody" id="parsed-Body"></div>
-                    <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
-                </div>
-            </ul>
+        <div v-if="filteredData && filteredData.timeline.length > 0">
+            <div>
+                <div id="comment">评论</div>
+                <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
+                <ul>
+                    <div v-for="(event, index) in filteredTimeline" :key="index">
+                        <p>
+                            <div id="user">
+                                <img :src="`https://github.com/` + event.actor_login + `.png`"
+                                    style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);"
+                                    alt="GitHub Avatar">
+                                {{ event.actor_login }}
+                            </div>
+                            <em>(回复时间 {{ formatDate(event.created_at) }})</em>:
+                        </p> 
+                        <div v-html="event.parsedBody" id="parsed-Body"></div>
+                        <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
+                    </div>
+                </ul>
+            </div>
+            <p><a :href="filteredData.html_url" target="_blank" style="">去 GitHub 评论</a></p>
         </div>
-        <p><a :href="data.html_url" target="_blank" style="">去 GitHub 评论</a></p>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
-import { marked } from 'marked';  // 引入 marked 库
+import { marked } from 'marked';
 
 export default {
     data() {
         return {
             data: null,
+            filteredData: null,
             loading: true,
             error: null,
         };
     },
     computed: {
         filteredTimeline() {
-            // 过滤掉 `body` 为 "没有正文" 的时间线项
-            // 并将 `body` 使用 `marked` 转换为 HTML
-            return this.data ? this.data.timeline.filter(event => event.body !== '没有正文').map(event => {
+            return this.filteredData ? this.filteredData.timeline.filter(event => event.body !== '没有正文').map(event => {
                 return {
                     ...event,
                     parsedBody: marked(event.body)
@@ -69,21 +67,25 @@ export default {
             }) : [];
         },
         parsedBody() {
-            // 将 data.body 解析为 HTML
-            return this.data ? marked(this.data.body) : '';
+            return this.filteredData ? marked(this.filteredData.body) : '';
         }
     },
     methods: {
         formatDate(dateString) {
             const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
             return new Date(dateString).toLocaleDateString(undefined, options);
+        },
+        getLookPagesId() {
+            return localStorage.getItem('lookPagesId'); // 从浏览器存储获取 lookPagesId
         }
     },
     mounted() {
         axios.get(import.meta.env.VITE_INTERACTIVITY)
             .then(response => {
-                // 假设返回的是一个数组，这里只取第一个元素进行处理
-                this.data = response.data[0];
+                const lookPagesId = this.getLookPagesId(); // 获取 lookPagesId
+                const data = response.data;
+                // 筛选出与 lookPagesId 匹配的内容
+                this.filteredData = data.find(item => item.id == lookPagesId);
             })
             .catch(error => {
                 this.error = '藿藿正在搬运数据发现 Error fetching data: ' + error.message;
@@ -94,6 +96,7 @@ export default {
     },
 };
 </script>
+
 <style scoped>
 #parsedBody img{
     width: 100%;
