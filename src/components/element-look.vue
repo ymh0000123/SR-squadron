@@ -10,14 +10,14 @@
             <h2 id="title">{{ data.title }}</h2>
             <div id="user">
                 <strong>发布者:</strong>
-                <img :src="`https://github.com/` + data.user_login + `.png`"
+                <img :src="'https://github.com/' + data.user_login + '.png'"
                     style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);" alt="GitHub Avatar">
                 {{ data.user_login }}
                 <strong>发布时间:</strong> {{ formatDate(data.created_at) }}
                 <strong>评论量:</strong> {{ data.comments }}
             </div>
             <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
-            <div v-html="parsedBody" id="parsedBody"></div>
+            <div v-html="parsedBody" id="parsedBody" class="interactivity"></div>
         </div>
     </div>
 
@@ -106,5 +106,28 @@ export default {
 }
 #parsed-Body {
     color: rgb(206, 248, 255);
+}
+</style>
+<style scoped>
+/* 基本容器样式 */
+.interactivity {
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-color: rgb(98,244,248) transparent;
+}
+
+.interactivity::-webkit-scrollbar {
+    width: 10px;
+}
+
+.interactivity::-webkit-scrollbar-thumb {
+    background-color: #4a90e2;
+    border-radius: 0px;
+}
+
+.interactivity::-webkit-scrollbar-track {
+    display: none;
+    background-color: #e0e0e0;
+    border-radius: 0px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-    <div id="interactivity">
-        <div v-if="responseData && responseData.length">
+    <div class="list">
+        <div v-if="responseData && responseData.length" id="interactivity">
             <div v-for="(item, index) in responseData" :key="index" style="cursor: pointer;"
                 @click="item && look(item.id)">
                 <div id="user">
@@ -15,8 +15,11 @@
             </div>
         </div>
         <p v-else>
-        <div class="loader"></div>
-        藿藿正在努力搬运数据
+        <div id="interactivity">
+            <div class="loader"></div>
+            藿藿正在努力搬运数据
+        </div>
+
         </p>
         <p v-if="error">{{ error }}</p>
     </div>
@@ -76,6 +79,6 @@ export default {
 </script>
 <style scoped>
 #interactivity:hover {
-    border: 1px solid rgb(163,195,207);
+    border: 1px solid rgb(163, 195, 207);
 }
 </style>

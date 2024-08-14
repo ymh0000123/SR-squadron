@@ -1,7 +1,7 @@
 <template>
     <div id="menuleft">
         <div id="info">
-            <img src="/favicon.ico">
+            <img src="/favicon.ico" :alt="appName">
             <!-- 使用动态绑定，将应用名称从环境变量中获取 -->
             <h1 id="name">{{ appName }}</h1>
         </div>
