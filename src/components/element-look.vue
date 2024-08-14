@@ -19,7 +19,8 @@
             <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
             <div v-html="parsedBody" id="parsedBody" class="interactivity"></div>
         </div>
-        <div v-if="filteredData && filteredData.timeline.length > 0">
+    </div>
+    <div v-if="filteredData && filteredData.timeline.length > 0" id="interactivity">
             <div>
                 <div id="comment">评论</div>
                 <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
@@ -41,7 +42,6 @@
             </div>
             <p><a :href="filteredData.html_url" target="_blank" style="">去 GitHub 评论</a></p>
         </div>
-    </div>
 </template>
 
 <script>
