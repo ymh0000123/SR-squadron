@@ -14,7 +14,7 @@
     </div>
     <div v-if="filteredData && filteredData.timeline.length > 0" id="interactivity">
         <div id="user">
-            <div style="display: flex;"><strong>发布者:</strong><img :src="'https://github.com/' + filteredData.user_login + '.png'"
+            <div style="display: flex;"><strong>发布者:</strong><img :src="'https://ymh-avatarproxy.pages.dev/github-avatar/' + filteredData.user_login"
                     style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);" alt="GitHub Avatar">
                 {{ filteredData.user_login }}</div>
 
@@ -28,7 +28,7 @@
                 <div v-for="(event, index) in filteredTimeline" :key="index">
                     <p>
                     <div id="user" style="display: flex;">
-                        <img :src="`https://github.com/` + event.actor_login + `.png`"
+                        <img :src="`https://ymh-avatarproxy.pages.dev/github-avatar/` + event.actor_login"
                             style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);"
                             alt="GitHub Avatar">
                         {{ event.actor_login }}

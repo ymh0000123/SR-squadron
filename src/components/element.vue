@@ -4,7 +4,7 @@
             <div v-for="(item, index) in responseData" :key="index" style="cursor: pointer;"
                 @click="item && look(item.id)"  id="interactivity">
                 <div id="user" style="display: flex;">
-                    <img :src="`https://github.com/` + item?.user_login + `.png`"
+                    <img :src="`https://ymh-avatarproxy.pages.dev/github-avatar/` + item?.user_login"
                         style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);" alt="GitHub Avatar">
                     {{ item?.user_login }}
                 </div>
