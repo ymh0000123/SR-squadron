@@ -2,9 +2,9 @@
     <div class="list">
         <div v-if="responseData && responseData.length">
             <div v-for="(item, index) in responseData" :key="index" style="cursor: pointer;"
-                @click="item && look(item.id)"  id="interactivity">
+                @click="item && look(item.id)" id="interactivity">
                 <div id="user" style="display: flex;">
-                    <img :src="`https://ymh-avatarproxy.pages.dev/github-avatar/` + item?.user_login"
+                    <img :src="github_avatar + item?.user_login"
                         style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);" alt="GitHub Avatar">
                     {{ item?.user_login }}
                 </div>
@@ -33,6 +33,15 @@ export default {
     setup() {
         const responseData = ref(null);
         const error = ref(null);
+
+        let github_avatar;
+
+        if (!import.meta.env.VITE_GITHUB_AVATAR) {
+            github_avatar = 'https://avatars.githubusercontent.com/';
+            console.log('ok');
+        } else {
+            github_avatar = import.meta.env.VITE_GITHUB_AVATAR;
+        }
 
         const get = async () => {
             try {
@@ -73,6 +82,7 @@ export default {
             formatDate,
             truncateAndHideAfterNewline,
             look,
+            github_avatar
         };
     }
 };

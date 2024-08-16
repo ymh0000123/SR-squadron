@@ -14,7 +14,7 @@
     </div>
     <div v-if="filteredData && filteredData.timeline.length > 0" id="interactivity">
         <div id="user">
-            <div style="display: flex;"><strong>发布者:</strong><img :src="'https://ymh-avatarproxy.pages.dev/github-avatar/' + filteredData.user_login"
+            <div style="display: flex;"><strong>发布者:</strong><img :src="github_avatar + filteredData.user_login"
                     style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);" alt="GitHub Avatar">
                 {{ filteredData.user_login }}</div>
 
@@ -28,7 +28,7 @@
                 <div v-for="(event, index) in filteredTimeline" :key="index">
                     <p>
                     <div id="user" style="display: flex;">
-                        <img :src="`https://ymh-avatarproxy.pages.dev/github-avatar/` + event.actor_login"
+                        <img :src="github_avatar + event.actor_login"
                             style="width: 20px;border-radius: 50%;border: 2px solid rgb(231,219,181);"
                             alt="GitHub Avatar">
                         {{ event.actor_login }}
@@ -49,6 +49,19 @@ import axios from 'axios';
 import { marked } from 'marked';
 
 export default {
+    setup(){
+        let github_avatar;
+
+        if (!import.meta.env.VITE_GITHUB_AVATAR) {
+            github_avatar = 'https://avatars.githubusercontent.com/';
+            console.log('ok');
+        } else {
+            github_avatar = import.meta.env.VITE_GITHUB_AVATAR;
+        }
+        return {
+            github_avatar,
+        }
+    },
     data() {
         return {
             data: null,
