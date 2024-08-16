@@ -1,0 +1,11 @@
+#interactivity {
+    margin-right: 5px;
+}
+#main{
+    display: flex;
+}
+@media (max-width: 1032px) {
+    #main{
+        display: block;
+    }
+}

@@ -1,3 +1,4 @@
+import './fadeOut.css'
 document.addEventListener("DOMContentLoaded", function () {
     function set() {
         const leftmenuElement = document.getElementById("left-menu");
