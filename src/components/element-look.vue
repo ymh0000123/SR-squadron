@@ -131,22 +131,17 @@ export default {
 .interactivity {
     max-height: 75vh;
     overflow-y: auto;
-    scrollbar-color: rgb(98, 244, 248) transparent;
+    overflow-x: hidden;
 }
 
 .interactivity::-webkit-scrollbar {
-    width: 10px;
+    width: 7px;
+    height: 7px;
 }
 
 .interactivity::-webkit-scrollbar-thumb {
-    background-color: #4a90e2;
-    border-radius: 0px;
-}
-
-.interactivity::-webkit-scrollbar-track {
-    display: none;
-    background-color: #e0e0e0;
-    border-radius: 0px;
+    border-radius: 10px;
+    background: rgb(98, 244, 248);
 }
 .interactivity img{
     max-height: 100%;

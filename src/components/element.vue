@@ -91,4 +91,22 @@ export default {
 #interactivity:hover {
     border: 1px solid rgb(163, 195, 207);
 }
+.list {
+    max-height: 80vh;
+    width: 100%;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    padding-right: 50px;
+}
+
+.list::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+.list::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgb(98, 244, 248);
+    margin: 2px;
+}
 </style>
