@@ -24,7 +24,7 @@
         <div style="border-top: 1px solid rgb(98,244,248); margin: 20px 0;"></div>
         <div>
             <div id="comment">评论</div>
-            <ul>
+            <ul class="interactivity">
                 <div v-for="(event, index) in filteredTimeline" :key="index">
                     <p>
                     <div id="user" style="display: flex;">
@@ -145,5 +145,10 @@ export default {
 }
 .interactivity img{
     max-height: 100%;
+}
+@media (max-width: 980px) {
+    .interactivity {
+        max-height: 30vh;
+    }
 }
 </style>
