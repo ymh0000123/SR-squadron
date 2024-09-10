@@ -1,3 +1,6 @@
+* {
+  cursor: url('cursor.png'), auto;
+}
 body {
   background-color: rgb(18, 20, 22) !important;
   margin: 0;
